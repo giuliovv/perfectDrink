@@ -48,7 +48,7 @@ function IndexPage() {
   return(
     <Layout>
       <SEO title="Home" />
-      <div style={{display: 'table', margin: "0 auto"}}>
+      <div style={{display: 'table', margin: "0 auto", textAlign: "center"}}>
         Female
         <Radio
           checked={sesso === 0}
@@ -106,7 +106,7 @@ function IndexPage() {
                 shrink: true,
               }}
               inputProps={{
-                step: 0.01,
+                step: 0.05,
               }}
             />
             </div>
