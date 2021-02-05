@@ -1,5 +1,6 @@
 import React from "react"
 
+import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,7 +32,7 @@ function IndexPage() {
   var water = [0.49, 0.58];
   const alcolLevel = (quantoAlcol) => {
     // Number of standard drink, 10g each
-    var drinks = (ebac + beta[sesso]*tempo)*water[sesso]*peso/(0.806*1.2);
+    var drinks = (ebac/10 + beta[sesso]*tempo)*water[sesso]*peso/(0.806*1.2);
     // g/L
     var realAmount = drinks*10/quantoAlcol
     //gradi
@@ -50,7 +51,7 @@ function IndexPage() {
       <SEO />
       <div style={{display: 'table', position:"absolute", textAlign: "center", height:"100%", width:"95%"}}>
         <div style={{display: 'table-cell', verticalAlign: "middle", textAlign: "center"}}>
-          Female
+          Donna
           <Radio
             checked={sesso === 0}
             onChange={() => setSesso(0)}
@@ -59,7 +60,7 @@ function IndexPage() {
             name="select_gender_female"
             inputProps={{ 'aria-label': 'Female' }}
           />
-          Male
+          Uomo
           <Radio
             checked={sesso === 1}
             onChange={() => setSesso(1)}
@@ -72,7 +73,7 @@ function IndexPage() {
             <div>
             <TextField
                 id="standard-number"
-                label="Weight"
+                label="Peso"
                 type="number"
                 value={peso}
                 onChange={(event) => setPeso(event.target.value)}
@@ -82,24 +83,30 @@ function IndexPage() {
                 inputProps={{
                   step: 5,
                 }}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
+                }}
               />
             </div>
             <div>
               <TextField
                 id="standard-number"
-                label="Time"
+                label="Tempo"
                 type="number"
                 value={tempo}
                 onChange={(event) => setTempo(event.target.value)}
                 InputLabelProps={{
                   shrink: true,
                 }}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">Ore</InputAdornment>,
+                }}
               />
               </div>
               <div>
               <TextField
                 id="standard-number"
-                label="Blood alcohol level"
+                label="Livello di alcol nel sangue"
                 type="number"
                 value={ebac}
                 onChange={handleEbac}
@@ -108,6 +115,9 @@ function IndexPage() {
                 }}
                 inputProps={{
                   step: 0.05,
+                }}
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">‰</InputAdornment>,
                 }}
               />
               </div>
