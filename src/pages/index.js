@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   fab: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: theme.spacing(2),
     right: theme.spacing(2),
   },
@@ -146,44 +146,64 @@ function Perfetta(props){
     setPrimoLancio(false)
   }
   return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <div>
-        <TextField
-          id="standard-number"
-          label="Livello consigliato"
-          type="number"
-          value={props.ebac}
-          onChange={props.handleEbac}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          inputProps={{
-            step: 0.05,
-          }}
-          InputProps={{
-            endAdornment: <InputAdornment position="end">‰</InputAdornment>,
-          }}
-        />
-      </div>
-      <div>
-        <TextField
-          id="standard-number"
-          label="Gradi drink"
-          type="number"
-          value={gradi}
-          onChange={(event) => setGradi(event.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          inputProps={{
-            step: 1,
-          }}
-          InputProps={{
-            endAdornment: <InputAdornment position="end">°</InputAdornment>,
-          }}
-        />
-      </div>
-    </form>
+    <div style={{maxWidth: "100%"}}>
+      <form className={classes.root} noValidate autoComplete="off">
+        <div>
+          <TextField
+            id="standard-number"
+            label="Livello consigliato"
+            type="number"
+            value={props.ebac}
+            onChange={props.handleEbac}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            inputProps={{
+              step: 0.05,
+            }}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">‰</InputAdornment>,
+            }}
+          />
+        </div>
+        <div>
+          <TextField
+            id="standard-number"
+            label="Gradi drink"
+            type="number"
+            value={gradi}
+            onChange={(event) => setGradi(event.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            inputProps={{
+              step: 1,
+            }}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">°</InputAdornment>,
+            }}
+          />
+        </div>
+      </form>
+      <Plot
+      data={[
+        {
+          x: [1, 2, 3],
+          y: [2, 6, 3],
+          type: 'scatter',
+          mode: 'lines+markers',
+          marker: {color: 'red'},
+        },
+      ]}
+      layout={{
+        showlegend: false,
+      }}
+      style={{
+        width:"100%"
+      }}
+      config={{staticPlot:true}}
+    />
+  </div>
   )
 }
 
