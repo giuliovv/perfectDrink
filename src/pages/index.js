@@ -10,10 +10,10 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import BathtubIcon from '@material-ui/icons/Bathtub';
 import AccessibleForwardIcon from '@material-ui/icons/AccessibleForward';
 
-import Plot from 'react-plotly.js';
-
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
+
+import Loadable from 'react-loadable';
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -145,12 +145,19 @@ function Perfetta(props){
     props.setEbac(0.5)
     setPrimoLancio(false)
   }
+  const Grafico = Loadable({
+    loader: () => import('../components/grafico'),
+    loading() {
+      return <div>Loading... (rendered from the server)</div>;
+    },
+  });
+  
   return (
     <div style={{maxWidth: "100%"}}>
       <form className={classes.root} noValidate autoComplete="off">
         <div>
           <TextField
-            id="standard-number"
+            id="livello"
             label="Livello"
             type="number"
             value={props.ebac}
@@ -168,7 +175,7 @@ function Perfetta(props){
         </div>
         <div>
           <TextField
-            id="standard-number"
+            id="gradazione"
             label="Gradi drink"
             type="number"
             value={gradi}
@@ -185,31 +192,7 @@ function Perfetta(props){
           />
         </div>
       </form>
-      <Plot
-      data={[
-        {
-          x: [0,6],
-          y: [ebacLevel(0.33, 0), ebacLevel(0.33, 3), ebacLevel(0.33, 6)],
-          type: 'scatter',
-          mode: 'lines',
-          marker: {color: 'red'},
-        },
-      ]}
-      layout={{
-        showlegend: false,
-        margin: {
-          l: 40,
-          r: 30,
-          t: 20,
-          b: 80,
-          pad: 0
-    },
-      }}
-      style={{
-        width:"100%"
-      }}
-      config={{staticPlot:true}}
-    />
+      <Grafico ebacLevel={ebacLevel}/>
   </div>
   )
 }
