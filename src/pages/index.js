@@ -135,10 +135,10 @@ function Perfetta(props){
   const classes = useStyles();
   const [gradi, setGradi] = React.useState(12);
   const [primoLancio, setPrimoLancio] = React.useState(true);
-  const ebacLevel = (quantoAlcol) => {
+  const ebacLevel = (quantoAlcol, tempo) => {
     // Number of standard drinks
     var drinks = gradi * 8 * quantoAlcol /10
-    var ebac = (drinks*0.806*1.2/(props.water[props.sesso]*props.peso - props.beta[props.sesso]*props.tempo))*10;
+    var ebac = (drinks*0.806*1.2/(props.water[props.sesso]*props.peso) - props.beta[props.sesso]*tempo)*10;
     return ebac
   }
   if (primoLancio){
@@ -151,7 +151,7 @@ function Perfetta(props){
         <div>
           <TextField
             id="standard-number"
-            label="Livello consigliato"
+            label="Livello"
             type="number"
             value={props.ebac}
             onChange={props.handleEbac}
@@ -188,15 +188,22 @@ function Perfetta(props){
       <Plot
       data={[
         {
-          x: [1, 2, 3],
-          y: [2, 6, 3],
+          x: [0,6],
+          y: [ebacLevel(0.33, 0), ebacLevel(0.33, 3), ebacLevel(0.33, 6)],
           type: 'scatter',
-          mode: 'lines+markers',
+          mode: 'lines',
           marker: {color: 'red'},
         },
       ]}
       layout={{
         showlegend: false,
+        margin: {
+          l: 40,
+          r: 30,
+          t: 20,
+          b: 80,
+          pad: 0
+    },
       }}
       style={{
         width:"100%"
@@ -243,6 +250,11 @@ function IndexPage() {
             ebac={ebac}
             handleEbac={handleEbac}
             setEbac={setEbac}
+            water={water}
+            beta={beta}
+            sesso={sesso}
+            tempo={tempo}
+            peso={peso}
             /> :
             <GetDati
             ebac={ebac}
