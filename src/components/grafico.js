@@ -8,7 +8,7 @@ function Grafico(props){
         data={[
             {
             x: [0,6],
-            y: [props.ebacLevel(0.33, 0), props.ebacLevel(0.33, 3), props.ebacLevel(0.33, 6)],
+            y: [props.ebacLevel(0.33, 0), props.ebacLevel(0.33, 6)],
             type: 'scatter',
             mode: 'lines',
             marker: {color: 'red'},

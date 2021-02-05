@@ -148,7 +148,7 @@ function Perfetta(props){
   const Grafico = Loadable({
     loader: () => import('../components/grafico'),
     loading() {
-      return <div>Loading... (rendered from the server)</div>;
+      return <div>Caricamento...</div>;
     },
   });
   
