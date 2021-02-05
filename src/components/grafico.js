@@ -3,12 +3,13 @@ import React from "react"
 import Plot from 'react-plotly.js';
 
 function Grafico(props){
+    var maxtempo = props.timeForEbac(0)
     return(
         <Plot
         data={[
             {
-            x: [0,6],
-            y: [props.ebacLevel(0.33, 0), props.ebacLevel(0.33, 6)],
+            x: [0, props.traQuanteOre, props.traQuanteOre, maxtempo],
+            y: [props.ebacLevel(0), props.ebacLevel(props.traQuanteOre), props.ebac*1.3, props.ebacLevel(maxtempo) + props.ebac*0.6],
             type: 'scatter',
             mode: 'lines',
             marker: {color: 'red'},

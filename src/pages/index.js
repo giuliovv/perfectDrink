@@ -76,7 +76,7 @@ function GetDati(props){
             <form className={classes.root} noValidate autoComplete="off">
               <div>
               <TextField
-                  id="standard-number"
+                  id="peso"
                   label="Peso"
                   type="number"
                   value={props.peso}
@@ -109,7 +109,7 @@ function GetDati(props){
                 </div>
                 <div>
                 <TextField
-                  id="standard-number"
+                  id="alcol_level"
                   label="Livello di alcol nel sangue"
                   type="number"
                   value={props.ebac}
@@ -134,12 +134,34 @@ function GetDati(props){
 function Perfetta(props){
   const classes = useStyles();
   const [gradi, setGradi] = React.useState(12);
+  const [primoDrink, setPrimoDrink] = React.useState(33);
   const [primoLancio, setPrimoLancio] = React.useState(true);
-  const ebacLevel = (quantoAlcol, tempo) => {
+  const ebacLevel = (tempo, quantoAlcol) => {
+    // EBAC tra tempo bevendo quantoAlcol
+    if (!quantoAlcol){
+      quantoAlcol = primoDrink/100;
+    }
     // Number of standard drinks
     var drinks = gradi * 8 * quantoAlcol /10
     var ebac = (drinks*0.806*1.2/(props.water[props.sesso]*props.peso) - props.beta[props.sesso]*tempo)*10;
     return ebac
+  }
+  const timeForEbac = (ebac, quantoAlcol) => {
+    // Tempo per arrivare a ebac bevendo quantoAlcol
+    if (!quantoAlcol){
+      quantoAlcol = primoDrink/100;
+    }
+    // Number of standard drinks
+    var drinks = gradi * 8 * quantoAlcol /10
+    var tempo = (-ebac/10 + drinks*0.806*1.2/(props.water[props.sesso]*props.peso))/props.beta[props.sesso];
+    return tempo
+  }
+  const quantoAlcolForEbac = (ebactarget, tempo, ebacattuale) => {
+    // Tempo per arrivare a ebactarget partendo da ebacattuale
+    var drinks = ((ebactarget - ebacattuale)/10 + props.beta[props.sesso]*tempo)*props.water[props.sesso]*props.peso/(0.806*1.2);
+    var pesoAlcol = 8*gradi;
+    var quantoAlcol = drinks*10/pesoAlcol;
+    return quantoAlcol
   }
   if (primoLancio){
     props.setEbac(0.5)
@@ -151,6 +173,9 @@ function Perfetta(props){
       return <div>Caricamento...</div>;
     },
   });
+
+  var quantitaConsigliata = Math.round(quantoAlcolForEbac(props.ebac*1.3, 0, props.ebac*0.7)*100);
+  var traQuanteOre = timeForEbac(props.ebac*0.7).toFixed(2);
   
   return (
     <div style={{maxWidth: "100%"}}>
@@ -175,8 +200,26 @@ function Perfetta(props){
         </div>
         <div>
           <TextField
+            id="centilitri"
+            label="Quantità"
+            type="number"
+            value={primoDrink}
+            onChange={(event) => setPrimoDrink(event.target.value)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            inputProps={{
+              step: 1,
+            }}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">Cl</InputAdornment>,
+            }}
+          />
+        </div>
+        <div>
+          <TextField
             id="gradazione"
-            label="Gradi drink"
+            label="Gradazione"
             type="number"
             value={gradi}
             onChange={(event) => setGradi(event.target.value)}
@@ -192,7 +235,14 @@ function Perfetta(props){
           />
         </div>
       </form>
-      <Grafico ebacLevel={ebacLevel}/>
+      Per rimanere stabile intorno a {props.ebac}‰ bevi {quantitaConsigliata}cL a {gradi}° tra {traQuanteOre} ore.
+      <Grafico
+      ebacLevel={ebacLevel}
+      timeForEbac={timeForEbac}
+      ebac={props.ebac}
+      quantitaConsigliata={quantitaConsigliata}
+      traQuanteOre={traQuanteOre}
+      />
   </div>
   )
 }
@@ -252,7 +302,7 @@ function IndexPage() {
             }
           </div>
         </div>
-        <Fab variant="extended" color={modPerfetta ? "secondary":"primary"} className={classes.fab} onClick={() => setmodPerfetta(!modPerfetta)}>
+        <Fab variant="extended" color={modPerfetta ? "secondary":"primary"} style={{fill:"white", color:"white"}} className={classes.fab} onClick={() => setmodPerfetta(!modPerfetta)}>
           {
             modPerfetta ?
             <AccessibleForwardIcon className={classes.extendedIcon} /> :
