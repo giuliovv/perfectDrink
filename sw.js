@@ -27,17 +27,17 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-68b353fe0c282382c089.js"
+    "url": "webpack-runtime-4ddd18293c8bf67d0372.js"
   },
   {
-    "url": "framework-83e11af5cf111be5ad89.js"
+    "url": "framework-e2d419ac45d8ae41957a.js"
   },
   {
-    "url": "app-9dff4a01a2154b0b4adf.js"
+    "url": "app-a669723a2c7959f20da7.js"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "452979455cb079c9b0be5d9bfdb7a3f7"
+    "revision": "1e3b66e3275258a9172e9877631282a6"
   },
   {
     "url": "component---cache-caches-gatsby-plugin-offline-app-shell-js-b0556ce5127c1a3e2490.js"
@@ -48,10 +48,10 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "559299e2a6fd427cdde2bca1e42e1197"
+    "revision": "f0b629d7bbd6125d5075da81d15cee40"
   },
   {
-    "url": "polyfill-e4957c11759bdfc149d9.js"
+    "url": "polyfill-0eca59d2ee8c0828e3a6.js"
   },
   {
     "url": "manifest.webmanifest",
@@ -147,7 +147,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/perfectDrink/app-9dff4a01a2154b0b4adf.js`))) {
+  if (!resources || !(await caches.match(`/perfectDrink/app-a669723a2c7959f20da7.js`))) {
     return await fetch(event.request)
   }
 
