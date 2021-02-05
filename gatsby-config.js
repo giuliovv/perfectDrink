@@ -31,8 +31,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Perfect Drink`,
-        short_name: `Perfect Drink`,
+        name: `Perfectly Drunk`,
+        short_name: `Perfectly Drunk`,
         start_url: `/`,
         background_color: `#f7f0eb`,
         theme_color: `#a2466c`,
