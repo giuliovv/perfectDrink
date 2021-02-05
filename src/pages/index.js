@@ -47,7 +47,7 @@ function IndexPage() {
   };
   return(
     <Layout>
-      <SEO title="" />
+      <SEO />
       <div style={{display: 'table', position:"absolute", textAlign: "center", height:"100%", width:"95%"}}>
         <div style={{display: 'table-cell', verticalAlign: "middle", textAlign: "center"}}>
           Female
