@@ -47,71 +47,73 @@ function IndexPage() {
   };
   return(
     <Layout>
-      <SEO title="Home" />
-      <div style={{display: 'table', margin: "0 auto", textAlign: "center"}}>
-        Female
-        <Radio
-          checked={sesso === 0}
-          onChange={() => setSesso(0)}
-          value={0}
-          color="default"
-          name="select_gender_female"
-          inputProps={{ 'aria-label': 'Female' }}
-        />
-        Male
-        <Radio
-          checked={sesso === 1}
-          onChange={() => setSesso(1)}
-          value={1}
-          color="default"
-          name="radio-button-select_gender_male"
-          inputProps={{ 'aria-label': 'Male' }}
-        />
-        <form className={classes.root} noValidate autoComplete="off">
-          <div>
-          <TextField
-              id="standard-number"
-              label="Weight"
-              type="number"
-              value={peso}
-              onChange={(event) => setPeso(event.target.value)}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{
-                step: 5,
-              }}
-            />
-          </div>
-          <div>
-            <TextField
-              id="standard-number"
-              label="Time"
-              type="number"
-              value={tempo}
-              onChange={(event) => setTempo(event.target.value)}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            </div>
+      <SEO title="" />
+      <div style={{display: 'table', position:"absolute", textAlign: "center", height:"100%", width:"95%"}}>
+        <div style={{display: 'table-cell', verticalAlign: "middle", textAlign: "center"}}>
+          Female
+          <Radio
+            checked={sesso === 0}
+            onChange={() => setSesso(0)}
+            value={0}
+            color="default"
+            name="select_gender_female"
+            inputProps={{ 'aria-label': 'Female' }}
+          />
+          Male
+          <Radio
+            checked={sesso === 1}
+            onChange={() => setSesso(1)}
+            value={1}
+            color="default"
+            name="radio-button-select_gender_male"
+            inputProps={{ 'aria-label': 'Male' }}
+          />
+          <form className={classes.root} noValidate autoComplete="off">
             <div>
             <TextField
-              id="standard-number"
-              label="Blood alcohol level"
-              type="number"
-              value={ebac}
-              onChange={handleEbac}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{
-                step: 0.05,
-              }}
-            />
+                id="standard-number"
+                label="Weight"
+                type="number"
+                value={peso}
+                onChange={(event) => setPeso(event.target.value)}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  step: 5,
+                }}
+              />
             </div>
-          </form>
-          Puoi bere {alcolLevel(0.33).toFixed(2)}°, 33cl
+            <div>
+              <TextField
+                id="standard-number"
+                label="Time"
+                type="number"
+                value={tempo}
+                onChange={(event) => setTempo(event.target.value)}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              </div>
+              <div>
+              <TextField
+                id="standard-number"
+                label="Blood alcohol level"
+                type="number"
+                value={ebac}
+                onChange={handleEbac}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  step: 0.05,
+                }}
+              />
+              </div>
+            </form>
+            Puoi bere {alcolLevel(0.33).toFixed(2)}°, 33cl
+        </div>
       </div>
     </Layout>
   )

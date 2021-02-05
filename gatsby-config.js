@@ -1,8 +1,8 @@
 module.exports = {
   pathPrefix: "/perfectDrink",
   siteMetadata: {
-    title: `Perfect Drink`,
-    description: `Perfect drink calculator.`,
+    title: `Perfectly Drunk`,
+    description: `Perfectly drunk calculator.`,
     author: `@giuliovv`,
   },
   plugins: [
